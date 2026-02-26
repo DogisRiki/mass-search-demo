@@ -1,0 +1,19 @@
+{
+    "files.encoding": "utf8",
+    "files.eol": "\n",
+    "editor.detectIndentation": false,
+    "editor.renderWhitespace": "boundary",
+    "editor.insertSpaces": true,
+    "[yaml]": {
+        "editor.tabSize": 2
+    },
+    "[github-actions-workflow]": {
+        "editor.tabSize": 2
+    },
+    "[json]": {
+        "editor.tabSize": 4
+    },
+    "[jsonc]": {
+        "editor.tabSize": 4
+    }
+}

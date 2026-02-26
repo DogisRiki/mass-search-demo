@@ -1,0 +1,103 @@
+services:
+  dind:
+    image: docker:29-dind
+    container_name: dind
+    restart: always
+    privileged: true
+    environment:
+      - DOCKER_TLS_CERTDIR=
+    networks:
+      - my-network
+
+  backend:
+    container_name: spring
+    build:
+      context: .
+      dockerfile: docker/backend/Dockerfile
+    ports:
+      - 8080:8080
+    tty: true
+    volumes:
+      - ./backend:/home/spring/app
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    environment:
+      - DOCKER_HOST=tcp://dind:2375
+      - TESTCONTAINERS_HOST_OVERRIDE=dind
+    networks:
+      - my-network
+
+  frontend:
+    container_name: react
+    build:
+      context: .
+      dockerfile: docker/frontend/Dockerfile
+    ports:
+      - 5173:5173
+      - 6006:6006
+    # environment:
+    #   CHOKIDAR_USEPOLLING: true
+    tty: true
+    volumes:
+      - type: bind
+        source: ./frontend
+        target: /home/node/app
+      - type: volume
+        source: node_modules
+        target: /home/node/app/node_modules
+    networks:
+      - my-network
+
+  db:
+    container_name: postgresql
+    image: postgres:17.8-alpine
+    ports:
+      - 5432:5432
+    environment:
+      TZ: Asia/Tokyo
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: mass
+    restart: always
+    command: -c 'config_file=/etc/postgresql/postgresql.conf'
+    volumes:
+      - type: volume
+        source: db-data
+        target: /var/lib/postgresql/data
+    configs:
+      - source: postgres_config
+        target: /etc/postgresql/postgresql.conf
+    networks:
+      - my-network
+
+  elasticsearch:
+      container_name: elasticsearch
+      image: docker.elastic.co/elasticsearch/elasticsearch:9.3.0
+      ports:
+        - 9200:9200
+      environment:
+        - discovery.type=single-node
+        - xpack.security.enabled=false
+        - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      volumes:
+        - type: volume
+          source: es-data
+          target: /usr/share/elasticsearch/data
+      networks:
+        - my-network
+
+volumes:
+  db-data:
+    name: named-db-data
+  node_modules:
+    name: named-node_modules
+  es-data:
+      name: named-es-data
+
+configs:
+  postgres_config:
+    file: ./docker/db/postgresql.conf
+
+networks:
+  my-network:
+    driver: bridge

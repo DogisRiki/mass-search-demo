@@ -1,0 +1,6 @@
+// Gradle Toolchain Auto-Provisioningを有効にしてJDK23を自動ダウンロード
+plugins {
+    id 'org.gradle.toolchains.foojay-resolver-convention' version '1.0.0'
+}
+
+rootProject.name = 'demo'

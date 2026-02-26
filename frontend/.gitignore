@@ -1,0 +1,37 @@
+# Logs
+logs
+*.log
+pnpm-debug.log*
+
+# Dependencies
+node_modules
+
+# Build
+dist
+dist-ssr
+*.local
+
+# Editor
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Coverage
+coverage
+
+# Test results
+test-results
+
+# Env (allow only these)
+.env*
+!.env.development
+!.env.production
+
+# pnpm
+.pnpm-store

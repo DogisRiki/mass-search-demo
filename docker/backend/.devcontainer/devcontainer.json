@@ -1,0 +1,74 @@
+{
+    "name": "spring",
+    "service": "backend",
+    "workspaceFolder": "/home/spring/app",
+    "dockerComposeFile": "../../../compose.yaml",
+    "shutdownAction": "stopCompose",
+    "customizations": {
+        "vscode": {
+            "keybindings": [
+                {
+                    "key": "ctrl+shift+b",
+                    "command": "java.projectConfiguration.update",
+                    "when": true
+                }
+            ],
+            "extensions": [
+                "redhat.java",
+                "vscjava.vscode-java-debug",
+                "vscjava.vscode-java-test",
+                "shengchen.vscode-checkstyle",
+                "rangav.vscode-thunder-client",
+                "oderwat.indent-rainbow"
+            ],
+            "settings": {
+                "files.encoding": "utf8",
+                "files.eol": "\n",
+                "editor.detectIndentation": false,
+                "editor.renderWhitespace": "boundary",
+                "editor.insertSpaces": true,
+                "editor.formatOnSave": true,
+                "editor.formatOnPaste": true,
+                "editor.formatOnType": false,
+                "files.insertFinalNewline": true,
+                "files.trimFinalNewlines": true,
+                "files.trimTrailingWhitespace": true,
+                "java.compile.nullAnalysis.mode": "disabled",
+                "java.configuration.updateBuildConfiguration": "automatic",
+                "java.checkstyle.configuration": "checkstyle.xml",
+                "java.checkstyle.version": "13.2.0",
+                "java.format.settings.url": ".formatter/eclipse-formatter.xml",
+                "java.format.settings.profile": "CustomGoogleStyle",
+                "java.completion.importOrder": [
+                    ""
+                ],
+                "[java]": {
+                    "editor.insertSpaces": true,
+                    "editor.tabSize": 4,
+                    "editor.defaultFormatter": "redhat.java",
+                    "editor.codeActionsOnSave": {
+                        "source.organizeImports": "explicit"
+                    }
+                },
+                "[spring-boot-properties-yaml]": {
+                    "editor.insertSpaces": true,
+                    "editor.tabSize": 2
+                },
+                "[yaml]": {
+                    "editor.tabSize": 2
+                },
+                "[gradle]": {
+                    "editor.insertSpaces": true,
+                    "editor.tabSize": 4
+                },
+                "files.watcherExclude": {
+                    "**/node_modules/**": true,
+                    "**/.git/objects/**": true,
+                    "**/.gradle/**": true,
+                    "**/bin/**": true,
+                    "**/build/**": true
+                }
+            }
+        }
+    }
+}
